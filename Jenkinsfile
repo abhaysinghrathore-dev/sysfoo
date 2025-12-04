@@ -55,10 +55,11 @@ pipeline {
             script {
               docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
                 def commitHash = env.GIT_COMMIT.take(7)
-                def dockerImage = docker.build("xxxxxx/sysfoo:${commitHash}", "./")
-                dockerImage.push()
-                dockerImage.push("latest")
-                dockerImage.push("dev")
+                def dockerImage = docker.build("abhayasing/sysfoo:${commitHash}")
+
+                dockerImage.push()              // Push commit-based tag
+                dockerImage.push("latest")      // Push latest
+                dockerImage.push("dev")         // Push dev tag
               }
             }
 
