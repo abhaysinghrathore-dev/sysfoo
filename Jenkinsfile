@@ -53,9 +53,9 @@ pipeline {
           agent any
           steps {
             script {
-              docker.withRegistry('', 'dockerlogin') {
+              docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
                 def commitHash = env.GIT_COMMIT.take(7)
-                def dockerImage = docker.build("abhayasing/sysfoo:${commitHash}", ".")
+                def dockerImage = docker.build("abhaysing/sysfoo:${commitHash}", "./")
                 dockerImage.push()
                 dockerImage.push("latest")
                 dockerImage.push("dev")
